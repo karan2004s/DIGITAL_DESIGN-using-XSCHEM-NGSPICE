@@ -1,0 +1,2 @@
+# DIGITAL_DESIGN-using-XSCHEM-NGSPICE
+This is a github repository on VLSI DIGITAL DESIGN using XSHEM, NGSPICE and SKYWATER130nm.

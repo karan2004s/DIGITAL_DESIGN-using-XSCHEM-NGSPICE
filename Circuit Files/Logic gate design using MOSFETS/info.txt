@@ -1,0 +1,2 @@
+".sch" files are the schematic files 
+".sym" files are the symbol files of the designed circuits

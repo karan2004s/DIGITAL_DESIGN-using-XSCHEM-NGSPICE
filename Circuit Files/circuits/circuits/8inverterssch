@@ -1,0 +1,33 @@
+v {xschem version=3.4.5 file_version=1.2
+}
+G {}
+K {}
+V {}
+S {}
+E {}
+C {VLSI_World/gates/inverter_vtc.sym} -450 90 0 0 {name=x1}
+C {VLSI_World/gates/inverter_vtc.sym} -330 90 0 0 {name=x2}
+C {VLSI_World/gates/inverter_vtc.sym} -210 90 0 0 {name=x3}
+C {VLSI_World/gates/inverter_vtc.sym} -90 90 0 0 {name=x4}
+C {VLSI_World/gates/inverter_vtc.sym} 30 90 0 0 {name=x5}
+C {VLSI_World/gates/inverter_vtc.sym} 150 90 0 0 {name=x6}
+C {VLSI_World/gates/inverter_vtc.sym} 270 90 0 0 {name=x7}
+C {VLSI_World/gates/inverter_vtc.sym} 390 90 0 0 {name=x8}
+C {lab_pin.sym} -500 -30 1 0 {name=p1 sig_type=std_logic lab=vdd}
+C {lab_pin.sym} -380 -30 1 0 {name=p2 sig_type=std_logic lab=vdd}
+C {lab_pin.sym} -260 -30 1 0 {name=p3 sig_type=std_logic lab=vdd}
+C {lab_pin.sym} -140 -30 1 0 {name=p4 sig_type=std_logic lab=vdd}
+C {lab_pin.sym} -20 -30 1 0 {name=p5 sig_type=std_logic lab=vdd}
+C {lab_pin.sym} 100 -30 1 0 {name=p6 sig_type=std_logic lab=vdd}
+C {lab_pin.sym} 220 -30 1 0 {name=p7 sig_type=std_logic lab=vdd}
+C {lab_pin.sym} 340 -30 1 0 {name=p8 sig_type=std_logic lab=vdd}
+C {opin.sym} 420 10 0 0 {name=p9 lab=vout}
+C {ipin.sym} -540 10 0 0 {name=p10 lab=vin}
+C {vsource.sym} -640 60 0 0 {name=Vdd value=2 savecurrent=false}
+C {gnd.sym} -640 90 0 0 {name=l1 lab=GND}
+C {lab_pin.sym} -640 30 1 0 {name=p11 sig_type=std_logic lab=vdd}
+C {code_shown.sym} -490 100 0 0 {name=s1 only_toplevel=false value="
+.lib /usr/local/share/pdk/sky130A/libs.tech/combined/sky130.lib.spice tt
+vin vin 0 dc pulse(0 2 0 1n 1n 10n 20n)
+.tran 0.1n 100n
+.save all"}

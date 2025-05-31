@@ -1,0 +1,96 @@
+** sch_path: /home/karan-s/daVLSI_World/circuits/SISO.sch
+**.subckt SISO Qout Din vdd clk
+*.opin Qout
+*.ipin Din
+*.ipin vdd
+*.ipin clk
+x1 net1 vdd Din clk MSSDFF
+x2 net3 vdd net1 clk MSSDFF
+x3 net2 vdd net3 clk MSSDFF
+x4 Qout vdd net2 clk MSSDFF
+**** begin user architecture code
+
+.lib /usr/local/share/pdk/sky130A/libs.tech/combined/sky130.lib.spice tt
+vdd vdd 0 dc 2
+vc clk 0 dc pulse(0 2V 0ns 1ns 1ns 15ns 30ns)
+Vin  din 0  PWL(0ns 0V 12.49ns 0V 12.5ns 2V 24.99ns 2V 25ns 0V 69.9ns 0V  70n 2v 84.9n 2v 85n 0v)
+.tran 0.1 300n
+
+.save all
+
+
+**** end user architecture code
+**.ends
+
+* expanding   symbol:  daVLSI_World/circuits/MSSDFF.sym # of pins=4
+** sym_path: /home/karan-s/daVLSI_World/circuits/MSSDFF.sym
+** sch_path: /home/karan-s/daVLSI_World/circuits/MSSDFF.sch
+.subckt MSSDFF Q VDD D CLK
+*.ipin D
+*.opin Q
+*.ipin CLK
+*.ipin VDD
+x2 VDD D net2 CLK DFF1
+x1 VDD net2 Q net1 DFF1
+x3 VDD CLK net1 inverter_vtc
+.ends
+
+
+* expanding   symbol:  daVLSI_World/circuits/DFF1.sym # of pins=4
+** sym_path: /home/karan-s/daVLSI_World/circuits/DFF1.sym
+** sch_path: /home/karan-s/daVLSI_World/circuits/DFF1.sch
+.subckt DFF1 vdd D Q clk
+*.ipin clk
+*.ipin D
+*.ipin vdd
+*.opin Q
+x1 vdd net3 D clk GND NAND_gate
+x3 vdd Q net3 net1 GND NAND_gate
+x4 vdd net4 clk net2 GND NAND_gate
+x5 vdd net1 Q net4 GND NAND_gate
+x9 vdd D net2 inverter_vtc
+**** begin user architecture code
+
+
+.IC V(Q)=0
+
+
+**** end user architecture code
+.ends
+
+
+* expanding   symbol:  daVLSI_World/gates/inverter_vtc.sym # of pins=3
+** sym_path: /home/karan-s/daVLSI_World/gates/inverter_vtc.sym
+** sch_path: /home/karan-s/daVLSI_World/gates/inverter_vtc.sch
+.subckt inverter_vtc vdd vin vout
+*.ipin vin
+*.opin vout
+*.ipin vdd
+XM1 vout vin GND GND sky130_fd_pr__nfet_01v8 L=0.15 W=1 nf=1 ad='int((nf+1)/2) * W/nf * 0.29' as='int((nf+2)/2) * W/nf * 0.29' pd='2*int((nf+1)/2) * (W/nf + 0.29)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.29)' nrd='0.29 / W' nrs='0.29 / W' sa=0 sb=0 sd=0 mult=1 m=1
+XM2 vout vin vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W=2 nf=1 ad='int((nf+1)/2) * W/nf * 0.29' as='int((nf+2)/2) * W/nf * 0.29' pd='2*int((nf+1)/2) * (W/nf + 0.29)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.29)' nrd='0.29 / W' nrs='0.29 / W' sa=0 sb=0 sd=0 mult=1 m=1
+.ends
+
+
+* expanding   symbol:  daVLSI_World/gates/NAND_gate.sym # of pins=5
+** sym_path: /home/karan-s/daVLSI_World/gates/NAND_gate.sym
+** sch_path: /home/karan-s/daVLSI_World/gates/NAND_gate.sch
+.subckt NAND_gate vdd Y A B gnd
+*.ipin A
+*.ipin B
+*.opin Y
+*.ipin vdd
+*.ipin gnd
+XM1 Y A net1 gnd sky130_fd_pr__nfet_01v8 L=0.15 W=1 nf=1 ad='int((nf+1)/2) * W/nf * 0.29' as='int((nf+2)/2) * W/nf * 0.29' pd='2*int((nf+1)/2) * (W/nf + 0.29)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.29)' nrd='0.29 / W' nrs='0.29 / W' sa=0 sb=0 sd=0 mult=1 m=1
+XM2 net1 B gnd gnd sky130_fd_pr__nfet_01v8 L=0.15 W=1 nf=1 ad='int((nf+1)/2) * W/nf * 0.29' as='int((nf+2)/2) * W/nf * 0.29' pd='2*int((nf+1)/2) * (W/nf + 0.29)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.29)' nrd='0.29 / W' nrs='0.29 / W' sa=0 sb=0 sd=0 mult=1 m=1
+XM3 Y A vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W=2 nf=1 ad='int((nf+1)/2) * W/nf * 0.29' as='int((nf+2)/2) * W/nf * 0.29' pd='2*int((nf+1)/2) * (W/nf + 0.29)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.29)' nrd='0.29 / W' nrs='0.29 / W' sa=0 sb=0 sd=0 mult=1 m=1
+XM4 Y B vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W=2 nf=1 ad='int((nf+1)/2) * W/nf * 0.29' as='int((nf+2)/2) * W/nf * 0.29' pd='2*int((nf+1)/2) * (W/nf + 0.29)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.29)' nrd='0.29 / W' nrs='0.29 / W' sa=0 sb=0 sd=0 mult=1 m=1
+.ends
+
+.GLOBAL GND
+.end
